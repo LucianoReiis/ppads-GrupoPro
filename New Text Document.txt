@@ -1,0 +1,81 @@
+import React, { useState, useContext } from "react";
+import "./App.css";
+import api from './api';
+import { UserContext } from "./UserContext";
+import logo from './logo.png';
+import background from './fundo.jpg';
+
+function Login () {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [, setToken] = useContext(UserContext);
+
+  const submitLogin = async () => {
+    // Lógica para enviar dados de login ao backend e verificar no banco de dados
+    // Aqui você faria uma requisição para o backend para verificar os dados de login
+    // e receber um token de autenticação em caso de sucesso
+
+    // Exemplo de requisição fictícia usando fetch
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    };
+
+    try {
+      const response = await api.get("/auth/token", requestOptions);
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.message); // Exemplo de mensagem de erro retornada pelo backend
+      } else {
+        setToken(data.token); // Supondo que o backend retorne um token de autenticação
+      }
+    } catch (error) {
+      console.error("Erro ao enviar solicitação de login:", error);
+      setErrorMessage("Erro ao enviar solicitação de login. Por favor, tente novamente."); // Mensagem de erro genérica
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitLogin();
+  };
+
+  return (
+    <div className="App">
+      <div className="background" style={{ backgroundImage: `url(${background})` }}></div>
+      <div className="login-container">
+        <div className="logo">
+          <img src={logo} alt="Logo da Escola" />
+        </div>
+        <h2>Escola Octógno - Sistema de Presença</h2>
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Usuário" required />
+          <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" required />
+          <input type="submit" value="Entrar" />
+          {errorMessage && <p>{errorMessage}</p>}
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Login;
+
+===============================================
+
+import axios from 'axios'
+
+const api = axios.create({
+    baseURL: 'http://localhost:8000',
+});
+
+export default api;
+
+==================================================
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    setAuthenticated(false);
+  };
