@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import aluno from './aluno.jpg'
 
 
 const PresencaPage = () => {
 
   const navigate = useNavigate();
-
-  
-  
 
   const myFunction = (id) => {
     var x = document.getElementById(id);
@@ -21,12 +19,16 @@ const PresencaPage = () => {
     }
   }
 
-  
-
   return (
     <div className="w3-container w3-content" style={{maxWidth: "1400px", marginTop: "80px"}}>
-      <h1>Teste Index</h1>
-      <p>Essa msg deve aparecer! haha...</p>  
+      <div>
+        <div className='aluno'><img src='{aluno}'></img></div>
+      <h4>Aluno: Luciano Teste</h4>
+      <p>Matéria: Matemática</p>
+      <p>Turma: A1</p>
+      <p>Aula: 1 de 10</p>
+      <div><h2>Esteve Presente na Aula?</h2></div>
+      </div>
     </div>
   );
 };
