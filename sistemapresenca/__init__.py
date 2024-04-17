@@ -22,7 +22,7 @@ login_manager.login_message_category = 'alert-info'
 
 from sistemapresenca import models
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-inspect = sqlalchemy.inspect(engine)
+inspector = sqlalchemy.inspect(engine)
 if not inspector.has_table("aluno"):
     with app.app_context():
         database.drop_all()
