@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import os
+import sqlalchemy
 
 
 app = Flask(__name__)
@@ -19,4 +20,18 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'loginpage'
 login_manager.login_message_category = 'alert-info'
 
+from sistemapresenca import models
+engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+inspect = sqlalchemy.inspect(engine)
+if not inspector.has_table("aluno"):
+    with app.app_context():
+        database.drop_all()
+        database.create_all()
+        print("banco de dados criado")
+else:
+    print("base de dados já existente")
+
+
 from sistemapresenca import routes
+
+
