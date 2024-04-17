@@ -1,4 +1,6 @@
 # Projeto   de Prática Profissional em ADS
 ## Grupo: Grupo Pró
 
-### Bibliotecas necessárias: pymongo, fastapi, passlib, jwt, models, python-jose, python-multipart
+### Bibliotecas utilizadas no documento requirements.txt
+
+Deploy realizado no Railway: https://ppads-grupopro-production.up.railway.app/perfil
