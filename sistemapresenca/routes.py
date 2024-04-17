@@ -23,7 +23,7 @@ def loginpage():
         else:
             flash('Falha no Login!', 'alert-danger')
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data) # criptrogafa a senha do usuário
+        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data).decode('utf-8') # criptrogafa a senha do usuário
         aluno = Aluno(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=senha_cript)
         database.session.add(aluno)
         database.session.commit()
