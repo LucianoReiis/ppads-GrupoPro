@@ -26,7 +26,7 @@ if not inspector.has_table("alunos"):
     with app.app_context():
         database.drop_all()
         database.create_all()
-        print("banco de dados criado")
+        print("banco de dados criado com sucesso")
 else:
     print("base de dados já existente")
 
