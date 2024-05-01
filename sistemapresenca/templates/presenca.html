@@ -1,11 +1,35 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <div class=" container alert alert-danger" role="alert">
-      Página em construção!
+    <div class="container pe-5">
+        <div class="mt-3">
+            <h2>Resumo Presença Aluno por Matéria:</h2>
+        </div>
+        <div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Matricula</th>
+                  <th scope="col">Matérias</th>
+                </tr>
+              </thead>
+                <tbody>
+                    <!-- Preenche a tabela da página de alunos com os alunos cadastrados no banco de dados -->
+                    {% for matricula, materias in materias_por_matricula.items() %}
+                        <tr>
+                            <th scope="row">{{ matricula }}</th>
+                            <td>
+                                {% for materia in materias %}
+                                    {{ materia }}<br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="container logo">
-        <h2>Escola Octógno - Sistema de Presença</h2>
-        <img src="../static/images/logo.png" alt="Logo da Escola"/>
-    </div>
+
+
+
 {% endblock %}
