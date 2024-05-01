@@ -1,7 +1,7 @@
 from sistemapresenca import app, database, bcrypt
 from flask import render_template, redirect, flash, request
 from sistemapresenca.forms import FormLogin, FormCriarConta
-from sistemapresenca.models import Aluno
+from sistemapresenca.models import Aluno, Alunos
 from flask_login import login_user, logout_user, current_user, login_required
 
 # Criar route
@@ -35,7 +35,26 @@ def loginpage():
 @app.route("/presenca")
 @login_required
 def presenca():
-    return render_template("presenca.html")
+    #lista_alunos = Alunos.query.all()
+
+    lista_alunos = database.session.query(Alunos).all()
+    materias_por_matricula = {}
+
+    for aluno in lista_alunos:
+        if aluno.matricula not in materias_por_matricula:
+            materias_por_matricula[aluno.matricula] = []
+        materias_por_matricula[aluno.matricula].append(aluno.materia)
+
+    # Agora, imprima todas as matérias para cada matrícula
+    for matricula, materias in materias_por_matricula.items():
+        aluno = database.session.query(Alunos.nome).filter_by(matricula=matricula).first()
+        print(f"Matrícula: {matricula}")
+        for materia in materias:
+            print(f"Matéria: {materia}")
+        print()  # Linha em branco para separar os grupos
+
+
+    return render_template("presenca.html", lista_alunos=lista_alunos, materias_por_matricula=materias_por_matricula)
 
 @app.route("/alunos")
 @login_required

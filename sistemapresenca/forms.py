@@ -3,7 +3,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, equal_to, ValidationError
 from sistemapresenca.models import Aluno
 
-
 # Formularios de Cadastro e Logins
 class FormCriarConta(FlaskForm):
     username = StringField('Usuário', validators=[DataRequired()])
